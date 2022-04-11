@@ -1,12 +1,20 @@
 // node_modules
-import * as React from "react";
-import { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Route, Switch, useHistory, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 // pages
 import HomePage from "./pages/Home";
 import SignInPage from "./pages/SignIn";
 import SignUpPage from "./pages/SignUp";
+import BlogsPage from "./pages/Blogs";
+import BlogPage from "./pages/Blog";
+import NewBlogPage from "./pages/NewBlog";
+import CommentPage from "./pages/Comment";
+import ProfilePage from "./pages/Profile";
+
+// slices
+import { fetchMe } from "./store/me-slice";
 
 // components
 import LayoutComponent from "./components/Layout";
@@ -19,6 +27,7 @@ import { PATH } from "./consts";
 
 const App = () => {
     const authContext = useContext(AuthContext);
+    const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
 
@@ -31,23 +40,47 @@ const App = () => {
         history.push(PATH.SIGNIN);
     }
 
+    useEffect(() => {
+        if (authContext.token) dispatch(fetchMe(authContext.token));
+    }, [authContext.token]);
+
     return (
         <LayoutComponent>
-            <Switch>
-                <Route path={PATH.HOME} exact>
-                    <HomePage />
-                </Route>
-                {!authContext.isLoggedIn && (
+            {!authContext.isLoggedIn && (
+                <Switch>
+                    <Route path={PATH.HOME} exact>
+                        <HomePage />
+                    </Route>
                     <Route path={PATH.SIGNIN}>
                         <SignInPage />
                     </Route>
-                )}
-                {!authContext.isLoggedIn && (
                     <Route path={PATH.SIGNUP}>
                         <SignUpPage />
                     </Route>
-                )}
-            </Switch>
+                </Switch>
+            )}
+            {authContext.isLoggedIn && (
+                <Switch>
+                    <Route path={PATH.HOME} exact>
+                        <HomePage />
+                    </Route>
+                    <Route path={PATH.BLOGS}>
+                        <BlogsPage />
+                    </Route>
+                    <Route path={`${PATH.BLOG}/:id`}>
+                        <BlogPage />
+                    </Route>
+                    <Route path={PATH.NEWBLOG}>
+                        <NewBlogPage />
+                    </Route>
+                    <Route path={`${PATH.COMMENT}/:id`}>
+                        <CommentPage />
+                    </Route>
+                    <Route path={PATH.PROFILE}>
+                        <ProfilePage />
+                    </Route>
+                </Switch>
+            )}
         </LayoutComponent>
     );
 };

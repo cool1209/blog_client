@@ -52,8 +52,7 @@ const SignUpFormComponent = () => {
             );
             authContext.signin(
                 responseData.token,
-                expirationTime.toISOString(),
-                responseData.userId
+                expirationTime.toISOString()
             );
             history.push(PATH.HOME);
         } catch (error) {

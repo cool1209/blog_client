@@ -1,3 +1,4 @@
+// node_modules
 import React, { useRef, useContext } from "react";
 import {
     InputGroup,
@@ -13,11 +14,19 @@ import {
 import { EmailIcon, LockIcon } from "@chakra-ui/icons";
 import { useHistory } from "react-router-dom";
 import { GoogleLoginButton } from "ts-react-google-login-component";
-import AuthenticatedUser from "../../models/AuthUser";
+
+// context
 import AuthContext from "../../store/auth-context";
-import ApiError from "../../models/ApiError";
+
+// config
 import { SERVER_API_URL } from "../../config";
+
+// consts
 import { PATH } from "../../consts";
+
+// models
+import AuthenticatedUser from "../../models/AuthUser";
+import ApiError from "../../models/ApiError";
 
 const SignInFormComponent = () => {
     const API_URL = process.env.REACT_APP_BLOG_API_URL || SERVER_API_URL;
@@ -54,8 +63,7 @@ const SignInFormComponent = () => {
             );
             authContext.signin(
                 responseData.token,
-                expirationTime.toISOString(),
-                responseData.userId
+                expirationTime.toISOString()
             );
             history.push(PATH.HOME);
         } catch (error) {
@@ -118,7 +126,7 @@ const SignInFormComponent = () => {
                     <GoogleLoginButton
                         responseHandler={responseGoogle}
                         clientConfig={clientConfig}
-                        failureHandler={errorHandler}
+                        // failureHandler={errorHandler}
                     />
                 </Box>
                 <Box textAlign="center">

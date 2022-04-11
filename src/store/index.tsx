@@ -1,3 +1,4 @@
+// node_modules
 import {
     AnyAction,
     combineReducers,
@@ -5,7 +6,14 @@ import {
     Reducer,
 } from "@reduxjs/toolkit";
 
-const combinedReducer = combineReducers({});
+// slices
+import meSlice from "./me-slice";
+import blogsSlice from "./blogs-slice";
+
+const combinedReducer = combineReducers({
+    me: meSlice.reducer,
+    blogs: blogsSlice.reducer,
+});
 
 export type RootState = ReturnType<typeof combinedReducer>;
 
