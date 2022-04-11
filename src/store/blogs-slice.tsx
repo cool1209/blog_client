@@ -112,7 +112,7 @@ export const fetchBlog = (blogId: string) => {
     };
 };
 
-export const fetchThumbUp = (blogId: string) => {
+export const fetchThumbUp = (blogId: string, next: Function) => {
     return async (dispatch: Dispatch) => {
         try {
             const response = await fetch(`${API_URL}/blogs/thumbup/${blogId}`, {
@@ -131,6 +131,7 @@ export const fetchThumbUp = (blogId: string) => {
             dispatch(blogsActions.thumbupBlog({ blogId }));
         } catch (error) {
             dispatch(blogsActions.requestFailure());
+            next(error);
         }
     };
 };

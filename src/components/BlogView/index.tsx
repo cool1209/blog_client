@@ -1,6 +1,14 @@
 // node_modules
 import React from "react";
-import { Heading, Text, Image, Stack, Divider, Button } from "@chakra-ui/react";
+import {
+    Heading,
+    Text,
+    Image,
+    Stack,
+    Divider,
+    Button,
+    useToast,
+} from "@chakra-ui/react";
 import { ThumbUpRounded } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,9 +27,19 @@ type Props = {
 
 const BlogViewComponent: React.FC<Props> = ({ blog, ...props }) => {
     const dispatch = useDispatch();
+    const toast = useToast();
 
     const onThumbUp = () => {
-        dispatch(fetchThumbUp(blog.id));
+        dispatch(
+            fetchThumbUp(blog.id, (error: string) => {
+                toast({
+                    title: `${error}`,
+                    status: "error",
+                    isClosable: true,
+                    duration: 3000,
+                });
+            })
+        );
     };
 
     return (
@@ -35,7 +53,10 @@ const BlogViewComponent: React.FC<Props> = ({ blog, ...props }) => {
                 _hover={{ boxShadow: "md" }}
                 cursor={"pointer"}
             >
-                <Heading>{blog.title}</Heading>
+                <Heading display={"flex"} justifyContent={"space-between"}>
+                    <Text>{blog.title}</Text>
+                    <Text>{blog.username}</Text>
+                </Heading>
                 <Divider></Divider>
                 <Text>{blog.text}</Text>
                 <Divider></Divider>

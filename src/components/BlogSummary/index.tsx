@@ -37,7 +37,10 @@ const BlogSummaryComponent: React.FC<Props> = ({ blog, ...props }) => {
                     _hover={{ boxShadow: "md" }}
                     cursor={"pointer"}
                 >
-                    <Heading>{blog.title}</Heading>
+                    <Heading display={"flex"} justifyContent={"space-between"}>
+                        <Text>{blog.title}</Text>
+                        <Text>{blog.username}</Text>
+                    </Heading>
                     <Divider></Divider>
                     <Text height={"25px"} overflowY={"hidden"}>
                         {blog.text}
@@ -50,7 +53,7 @@ const BlogSummaryComponent: React.FC<Props> = ({ blog, ...props }) => {
                     >
                         <ThumbUp></ThumbUp>
                         &nbsp; &nbsp;
-                        {blog.like}5
+                        {blog.like}
                     </Text>
                 </Stack>
             </Link>

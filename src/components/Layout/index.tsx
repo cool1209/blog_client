@@ -17,13 +17,13 @@ const LayoutComponent: React.FC = (props) => {
             <HeaderComponent></HeaderComponent>
             <Flex
                 justify="center"
-                // align="center"
                 align={
-                    location.pathname === PATH.BLOGS ||
-                    location.pathname === PATH.NEWBLOG ||
-                    location.pathname === PATH.COMMENT
-                        ? "flex-start"
-                        : "center"
+                    location.pathname === PATH.HOME ||
+                    location.pathname === PATH.SIGNIN ||
+                    location.pathname === PATH.SIGNUP ||
+                    location.pathname === PATH.PROFILE
+                        ? "center"
+                        : "flex-start"
                 }
                 w="100%"
                 h="87vh"

@@ -20,7 +20,6 @@ import { SERVER_API_URL } from "../../config";
 import { PATH } from "../../consts";
 
 // models
-import AuthenticatedUser from "../../models/AuthUser";
 import ApiError from "../../models/ApiError";
 
 const NewBlogPage = () => {
@@ -71,7 +70,7 @@ const NewBlogPage = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="form-width-90">
             <Stack spacing={3}>
                 <FormControl isRequired>
                     <Text mb="8px">Title:</Text>
