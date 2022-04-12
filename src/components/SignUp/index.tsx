@@ -14,12 +14,12 @@ import {
 } from "@chakra-ui/react";
 import { InfoIcon, EmailIcon, LockIcon } from "@chakra-ui/icons";
 
+// store
+import AuthContext from "../../store/auth-context";
+
 // models
 import AuthenticatedUser from "../../models/AuthUser";
 import ApiError from "../../models/ApiError";
-
-// store
-import AuthContext from "../../store/auth-context";
 
 // config
 import { SERVER_API_URL } from "../../config";

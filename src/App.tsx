@@ -1,7 +1,7 @@
 // node_modules
 import React, { useContext, useEffect } from "react";
 import { Route, Switch, useHistory, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // pages
 import HomePage from "./pages/Home";
@@ -14,11 +14,11 @@ import UpdateBlogPage from "./pages/UpdateBlog";
 import CommentPage from "./pages/Comment";
 import ProfilePage from "./pages/Profile";
 
-// slices
-import { fetchMe } from "./store/me-slice";
-
 // components
 import LayoutComponent from "./components/Layout";
+
+// store
+import { fetchMe } from "./store/me-slice";
 
 // contexts
 import AuthContext from "./store/auth-context";

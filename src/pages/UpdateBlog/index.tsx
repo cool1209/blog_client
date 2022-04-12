@@ -7,20 +7,18 @@ import { useToast } from "@chakra-ui/react";
 // components
 import BlogEditComponent from "../../components/BlogEdit";
 
-// config
-import { SERVER_API_URL } from "../../config";
-
-// slices
+// store
+import { fetchCertainBlog } from "../../store/blogs-slice";
 import { RootState } from "../../store";
+
+// models
+import ApiError from "../../models/ApiError";
 
 // consts
 import { PATH } from "../../consts";
 
-// slice
-import { fetchCertainBlog } from "../../store/blogs-slice";
-
-// models
-import ApiError from "../../models/ApiError";
+// config
+import { SERVER_API_URL } from "../../config";
 
 const UpdateBlogPage = () => {
     const API_URL = process.env.REACT_APP_BLOG_API_URL || SERVER_API_URL;

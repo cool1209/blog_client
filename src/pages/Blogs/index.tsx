@@ -1,6 +1,6 @@
 // node_modules
 import React, { useEffect, useState, useRef } from "react";
-import { Box, Text, Stack, Button, Select, Input } from "@chakra-ui/react";
+import { Box, Text, Button, Select, Input } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,10 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import BlogSummaryComponent from "../../components/BlogSummary";
 import PaginationComponent from "../../components/Pagination";
 
-// slices
+// store
 import { fetchBlogs } from "../../store/blogs-slice";
-
-// states
 import { RootState } from "../../store";
 
 const BlogsPage = () => {

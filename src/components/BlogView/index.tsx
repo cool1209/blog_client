@@ -14,9 +14,12 @@ import {
 import { ThumbUpRounded, DeleteRounded, EditRounded } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 
-// slices
+// store
 import { fetchDeleteBlog, fetchThumbUp } from "../../store/blogs-slice";
 import { RootState } from "../../store";
+
+// models
+import Blog from "../../models/Blog";
 
 // config
 import { BASE_SERVER_API_URL } from "../../config";
@@ -24,9 +27,7 @@ import { BASE_SERVER_API_URL } from "../../config";
 // consts
 import { PATH } from "../../consts";
 
-// models
-import Blog from "../../models/Blog";
-
+// props type
 type Props = {
     blog: Blog;
 };

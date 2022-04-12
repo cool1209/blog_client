@@ -1,23 +1,16 @@
 // node_modules
 import React from "react";
 import { useLocation, Link } from "react-router-dom";
-import {
-    Box,
-    Heading,
-    Text,
-    Image,
-    Stack,
-    Divider,
-    Icon,
-} from "@chakra-ui/react";
+import { Heading, Text, Stack, Divider } from "@chakra-ui/react";
 import { ThumbUp } from "@material-ui/icons";
-
-// consts
-import { PATH } from "../../consts";
 
 // models
 import Blog from "../../models/Blog";
 
+// consts
+import { PATH } from "../../consts";
+
+// props type
 type Props = {
     blog: Blog;
 };

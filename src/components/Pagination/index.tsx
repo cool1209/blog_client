@@ -1,7 +1,8 @@
 // node_modules
 import React, { useEffect, useState } from "react";
-import { Box, Text, Stack, Button, Select, Input } from "@chakra-ui/react";
+import { Box, Text, Button, Input } from "@chakra-ui/react";
 
+// props type
 type Props = {
     allPagesNumber: number;
     itemsPerPage: number;
@@ -12,13 +13,18 @@ type Props = {
 const PaginationComponent: React.FC<Props> = ({
     allPagesNumber,
     pageChange,
-    ...props
 }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
 
     useEffect(() => {
         pageChange(currentPage);
     }, [currentPage]);
+
+    useEffect(() => {
+        if (currentPage > allPagesNumber) {
+            setCurrentPage(allPagesNumber ? allPagesNumber : 1);
+        }
+    }, [allPagesNumber]);
 
     const onFirstPage = (): void => {
         setCurrentPage(1);

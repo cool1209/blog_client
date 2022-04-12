@@ -6,14 +6,14 @@ import { Input, useColorMode } from "@chakra-ui/react";
 import ApiError from "../../models/ApiError";
 
 // config
-import { BASE_SERVER_API_URL, SERVER_API_URL } from "../../config";
+import { SERVER_API_URL } from "../../config";
 
+// props type
 type Props = {
-    imageUrl: string;
     setData: Function;
 };
 
-const ImageUploadComponent: React.FC<Props> = ({ imageUrl, setData }) => {
+const ImageUploadComponent: React.FC<Props> = ({ setData }) => {
     const API_URL = process.env.REACT_APP_BLOG_API_URL || SERVER_API_URL;
     const { colorMode } = useColorMode();
 

@@ -7,10 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 // components
 import BlogViewComponent from "../../components/BlogView";
 
-// slices
+// store
 import { fetchBlog } from "../../store/blogs-slice";
-
-// states
 import { RootState } from "../../store";
 
 // consts

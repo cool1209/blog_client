@@ -16,12 +16,12 @@ import {
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 
-// context
-import AuthContext from "../../store/auth-context";
-
 // store
 import { RootState } from "../../store";
 import { logout } from "../../store/me-slice";
+
+// context
+import AuthContext from "../../store/auth-context";
 
 // config
 import { BASE_SERVER_API_URL } from "../../config";

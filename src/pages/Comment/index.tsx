@@ -1,5 +1,5 @@
 // node_modules
-import React, { useRef, useContext } from "react";
+import React, { useRef } from "react";
 import { useParams } from "react-router-dom";
 import {
     Input,
@@ -14,14 +14,14 @@ import {
 } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 
+// models
+import ApiError from "../../models/ApiError";
+
 // config
 import { SERVER_API_URL } from "../../config";
 
 // consts
 import { PATH } from "../../consts";
-
-// models
-import ApiError from "../../models/ApiError";
 
 const CommentPage = () => {
     const API_URL = process.env.REACT_APP_BLOG_API_URL || SERVER_API_URL;

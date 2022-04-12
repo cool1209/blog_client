@@ -1,6 +1,8 @@
-import { Box, useColorMode } from "@chakra-ui/react";
+// node_modules
 import React from "react";
+import { Box, useColorMode } from "@chakra-ui/react";
 
+// components
 import SignUpFormComponent from "../../components/SignUp";
 
 const SignUpPage = () => {

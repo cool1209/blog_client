@@ -12,12 +12,13 @@ import {
     Image,
 } from "@chakra-ui/react";
 
-// models
-import ApiError from "../../models/ApiError";
+// components
+import ImageUploadComponent from "../ImageUpload";
 
 // config
-import { BASE_SERVER_API_URL, SERVER_API_URL } from "../../config";
+import { BASE_SERVER_API_URL } from "../../config";
 
+// props type
 type Props = {
     data: {
         title: string;
@@ -27,9 +28,7 @@ type Props = {
     setData: Function;
 };
 
-const BlogEditComponent: React.FC<Props> = ({ data, setData, ...props }) => {
-    const API_URL = process.env.REACT_APP_BLOG_API_URL || SERVER_API_URL;
-
+const BlogEditComponent: React.FC<Props> = ({ data, setData }) => {
     const { colorMode } = useColorMode();
     const titleRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const textRef = useRef() as React.MutableRefObject<HTMLTextAreaElement>;
@@ -40,27 +39,9 @@ const BlogEditComponent: React.FC<Props> = ({ data, setData, ...props }) => {
         setData(titleRef.current.value, textRef.current.value, imageUrl);
     };
 
-    const imageSelect = async (files: FileList) => {
-        const formData = new FormData();
-        Array.from(files).map((file) => {
-            formData.append("imgCollection", file);
-        });
+    // useEffect(() => {
 
-        const response = await fetch(`${API_URL}/upload/image`, {
-            method: "POST",
-            body: formData,
-        });
-
-        if (!response.ok) {
-            const responseData: ApiError = await response.json();
-            throw new Error(responseData.message || response.statusText);
-        }
-
-        const responseData: { imageUrls: string[]; message: string } =
-            await response.json();
-        const uploadedImageUrl = responseData.imageUrls[0];
-        setImageUrl(uploadedImageUrl);
-    };
+    // })
 
     return (
         <form onSubmit={handleSubmit} className="form-width-90">
@@ -89,19 +70,10 @@ const BlogEditComponent: React.FC<Props> = ({ data, setData, ...props }) => {
                 </FormControl>
                 <FormControl>
                     <Text mb="8px">Image:</Text>
-                    <Input
-                        type="file"
-                        placeholder="Image"
-                        aria-label="Image"
-                        bg={colorMode === "light" ? "white" : "inherit"}
-                        // ref={imageRef}
-                        onChange={(event) => {
-                            imageSelect(
-                                event.target.files
-                                    ? event.target.files
-                                    : new FileList()
-                            );
-                        }}
+                    <ImageUploadComponent
+                        setData={(uploadedImageUrl: string) =>
+                            setImageUrl(uploadedImageUrl)
+                        }
                     />
                     {imageUrl && (
                         <Image

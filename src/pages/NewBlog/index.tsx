@@ -6,14 +6,14 @@ import { useHistory } from "react-router-dom";
 // components
 import BlogEditComponent from "../../components/BlogEdit";
 
+// models
+import ApiError from "../../models/ApiError";
+
 // config
 import { SERVER_API_URL } from "../../config";
 
 // consts
 import { PATH } from "../../consts";
-
-// models
-import ApiError from "../../models/ApiError";
 
 const NewBlogPage = () => {
     const API_URL = process.env.REACT_APP_BLOG_API_URL || SERVER_API_URL;
@@ -45,7 +45,6 @@ const NewBlogPage = () => {
             const responseData: {
                 message: string;
             } = await response.json();
-            console.log("message", responseData);
             toast({
                 title: `${responseData.message}`,
                 status: "info",

@@ -1,5 +1,6 @@
-import { Box, Text } from "@chakra-ui/react";
+// node_modules
 import React from "react";
+import { Box, Text } from "@chakra-ui/react";
 
 const HomePage = () => {
     return (

@@ -1,6 +1,6 @@
 // node_modules
 import React, { useRef, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { GoogleLoginButton } from "ts-react-google-login-component";
 import {
@@ -16,21 +16,21 @@ import {
 } from "@chakra-ui/react";
 import { EmailIcon, LockIcon } from "@chakra-ui/icons";
 
+// store
+import { fetchSigninGoogle } from "../../store/me-slice";
+
 // context
 import AuthContext from "../../store/auth-context";
 
-// slices
-import { fetchSigninGoogle } from "../../store/me-slice";
+// models
+import AuthenticatedUser from "../../models/AuthUser";
+import ApiError from "../../models/ApiError";
 
 // config
 import { SERVER_API_URL } from "../../config";
 
 // consts
 import { PATH } from "../../consts";
-
-// models
-import AuthenticatedUser from "../../models/AuthUser";
-import ApiError from "../../models/ApiError";
 
 const SignInFormComponent = () => {
     const API_URL = process.env.REACT_APP_BLOG_API_URL || SERVER_API_URL;

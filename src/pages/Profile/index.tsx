@@ -17,17 +17,18 @@ import {
 } from "@chakra-ui/react";
 import { InfoIcon, EmailIcon, LockIcon } from "@chakra-ui/icons";
 
-// models
-import ApiError from "../../models/ApiError";
-
-// slices
-import { fetchMe } from "../../store/me-slice";
-
-// states
-import { RootState } from "../../store";
+// components
+import ImageUploadComponent from "../../components/ImageUpload";
 
 // store
+import { fetchMe } from "../../store/me-slice";
+import { RootState } from "../../store";
+
+// slices
 import AuthContext from "../../store/auth-context";
+
+// models
+import ApiError from "../../models/ApiError";
 
 // config
 import { SERVER_API_URL, BASE_SERVER_API_URL } from "../../config";
@@ -52,7 +53,8 @@ const ProfilePage = () => {
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [imageUrl, setImageUrl] = useState<FileList | null>(null);
+    const [imageUrl, setImageUrl] = useState(me.photoUrl);
+
     const [oldPasswordError, setOldPasswordError] = useState(true);
     const [newPasswordError, setNewPasswordError] = useState(true);
     const [confirmPasswordError, setConfirmPasswordError] = useState(true);
@@ -77,37 +79,13 @@ const ProfilePage = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            let uploadedImageUrl = me.photoUrl;
-            if (imageUrl) {
-                const formData = new FormData();
-                Array.from(imageUrl).map((file) => {
-                    formData.append("imgCollection", file);
-                });
-
-                const response = await fetch(`${API_URL}/upload/image`, {
-                    method: "POST",
-                    body: formData,
-                });
-
-                if (!response.ok) {
-                    const responseData: ApiError = await response.json();
-                    throw new Error(
-                        responseData.message || response.statusText
-                    );
-                }
-
-                const responseData: { imageUrls: string[]; message: string } =
-                    await response.json();
-                uploadedImageUrl = responseData.imageUrls[0];
-            }
-
             const response = await fetch(`${API_URL}/users/user`, {
                 method: "PUT",
                 body: JSON.stringify({
                     username: usernameRef.current.value,
                     oldPassword: oldPassword,
                     password: newPassword,
-                    photoUrl: uploadedImageUrl,
+                    photoUrl: imageUrl,
                 }),
                 headers: {
                     "Content-Type": "application/json",
@@ -225,22 +203,17 @@ const ProfilePage = () => {
                 </FormControl>
                 <FormControl>
                     <InputGroup>
-                        <InputLeftElement children={<LockIcon />} />
-                        <Input
-                            type="file"
-                            placeholder="Image"
-                            aria-label="Image"
-                            onChange={(event) => {
-                                setImageUrl(event.target.files);
+                        <ImageUploadComponent
+                            setData={(uploadedImageUrl: string) => {
+                                setImageUrl(uploadedImageUrl);
                             }}
-                            bg={colorMode === "light" ? "white" : "inherit"}
                         />
                     </InputGroup>
-                    {me.photoUrl && (
+                    {imageUrl && (
                         <Image
                             width={"100%"}
                             height={"300px"}
-                            src={`${BASE_SERVER_API_URL}${me.photoUrl}`}
+                            src={`${BASE_SERVER_API_URL}${imageUrl}`}
                         />
                     )}
                 </FormControl>
