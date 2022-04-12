@@ -1,4 +1,6 @@
+// node_modules
 import React, { useRef, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import {
     InputGroup,
     Input,
@@ -11,11 +13,18 @@ import {
     useToast,
 } from "@chakra-ui/react";
 import { InfoIcon, EmailIcon, LockIcon } from "@chakra-ui/icons";
+
+// models
 import AuthenticatedUser from "../../models/AuthUser";
-import { useHistory } from "react-router-dom";
-import AuthContext from "../../store/auth-context";
 import ApiError from "../../models/ApiError";
+
+// store
+import AuthContext from "../../store/auth-context";
+
+// config
 import { SERVER_API_URL } from "../../config";
+
+// consts
 import { PATH } from "../../consts";
 
 const SignUpFormComponent = () => {

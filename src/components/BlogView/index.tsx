@@ -1,5 +1,6 @@
 // node_modules
 import React from "react";
+import { useHistory, Link } from "react-router-dom";
 import {
     Heading,
     Text,
@@ -7,13 +8,18 @@ import {
     Stack,
     Divider,
     Button,
+    Box,
     useToast,
 } from "@chakra-ui/react";
-import { ThumbUpRounded } from "@material-ui/icons";
+import { ThumbUpRounded, DeleteRounded, EditRounded } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 
 // slices
-import { fetchThumbUp } from "../../store/blogs-slice";
+import { fetchDeleteBlog, fetchThumbUp } from "../../store/blogs-slice";
+import { RootState } from "../../store";
+
+// config
+import { BASE_SERVER_API_URL } from "../../config";
 
 // consts
 import { PATH } from "../../consts";
@@ -27,6 +33,8 @@ type Props = {
 
 const BlogViewComponent: React.FC<Props> = ({ blog, ...props }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
+    const me = useSelector((state: RootState) => state.me.me);
     const toast = useToast();
 
     const onThumbUp = () => {
@@ -40,6 +48,11 @@ const BlogViewComponent: React.FC<Props> = ({ blog, ...props }) => {
                 });
             })
         );
+    };
+
+    const onDeleteBlog = () => {
+        dispatch(fetchDeleteBlog(blog.id));
+        history.push(PATH.BLOGS);
     };
 
     return (
@@ -60,7 +73,15 @@ const BlogViewComponent: React.FC<Props> = ({ blog, ...props }) => {
                 <Divider></Divider>
                 <Text>{blog.text}</Text>
                 <Divider></Divider>
-                <Text
+                {blog.imageUrl && (
+                    <Image
+                        width={"100%"}
+                        height={"300px"}
+                        src={`${BASE_SERVER_API_URL}${blog.imageUrl}`}
+                    />
+                )}
+                {blog.imageUrl && <Divider></Divider>}
+                <Box
                     display={"flex"}
                     alignItems={"center"}
                     justifyContent={"flex-end"}
@@ -68,9 +89,25 @@ const BlogViewComponent: React.FC<Props> = ({ blog, ...props }) => {
                     <Button onClick={onThumbUp}>
                         <ThumbUpRounded />
                     </Button>
-                    &nbsp;
+                    &nbsp;&nbsp;
                     {blog.like}
-                </Text>
+                    &nbsp;&nbsp;
+                    {me.id === blog.userId && (
+                        <Box>
+                            <Link to={`${PATH.UPDATE}/${blog.id}`}>
+                                <Button>
+                                    <EditRounded />
+                                    Update
+                                </Button>
+                            </Link>
+                            &nbsp;&nbsp;
+                            <Button onClick={onDeleteBlog}>
+                                <DeleteRounded />
+                                Delete
+                            </Button>
+                        </Box>
+                    )}
+                </Box>
             </Stack>
         </>
     );

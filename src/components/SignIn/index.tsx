@@ -1,5 +1,8 @@
 // node_modules
 import React, { useRef, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { GoogleLoginButton } from "ts-react-google-login-component";
 import {
     InputGroup,
     Input,
@@ -12,11 +15,12 @@ import {
     useToast,
 } from "@chakra-ui/react";
 import { EmailIcon, LockIcon } from "@chakra-ui/icons";
-import { useHistory } from "react-router-dom";
-import { GoogleLoginButton } from "ts-react-google-login-component";
 
 // context
 import AuthContext from "../../store/auth-context";
+
+// slices
+import { fetchSigninGoogle } from "../../store/me-slice";
 
 // config
 import { SERVER_API_URL } from "../../config";
@@ -30,15 +34,19 @@ import ApiError from "../../models/ApiError";
 
 const SignInFormComponent = () => {
     const API_URL = process.env.REACT_APP_BLOG_API_URL || SERVER_API_URL;
-    const authContext = useContext(AuthContext);
-    const history = useHistory();
-    const toast = useToast();
-    const { colorMode } = useColorMode();
-    const emailRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-    const passwordRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const clientConfig = {
         client_id: `958035201784-f1otga6aorensm9hqh06abs5fc7nm8v1.apps.googleusercontent.com`,
     };
+
+    const authContext = useContext(AuthContext);
+
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const toast = useToast();
+    const { colorMode } = useColorMode();
+
+    const emailRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+    const passwordRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -76,19 +84,30 @@ const SignInFormComponent = () => {
         }
     };
 
-    const errorHandler = (error: string): void => {
-        // handle error if login got failed...
-        console.error(error);
-    };
+    const responseGoogle = (googleUser: gapi.auth2.GoogleUser): void => {
+        const profile = googleUser.getBasicProfile();
 
-    const responseGoogle = (googleUser: any): void => {
-        const id_token = googleUser.getAuthResponse(true).id_token;
-        const googleId = googleUser.getId();
+        const email = profile.getEmail();
+        const google = profile.getId();
 
-        console.log({ googleId });
-        console.log({ accessToken: id_token });
-        // Make user login in your system
-        // login success tracking...
+        dispatch(
+            fetchSigninGoogle(
+                email,
+                google,
+                (response: { token: string; expirationTime: string }) => {
+                    authContext.signin(response.token, response.expirationTime);
+                    history.push(PATH.HOME);
+                },
+                (error: string) => {
+                    toast({
+                        title: `${error}`,
+                        status: "error",
+                        isClosable: true,
+                        duration: 3000,
+                    });
+                }
+            )
+        );
     };
 
     return (
@@ -126,7 +145,6 @@ const SignInFormComponent = () => {
                     <GoogleLoginButton
                         responseHandler={responseGoogle}
                         clientConfig={clientConfig}
-                        // failureHandler={errorHandler}
                     />
                 </Box>
                 <Box textAlign="center">

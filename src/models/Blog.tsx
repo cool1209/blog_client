@@ -1,5 +1,6 @@
 type Blog = {
     id: string;
+    userId: string;
     username: string;
     title: string;
     text: string;

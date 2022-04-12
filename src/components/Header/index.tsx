@@ -1,6 +1,6 @@
 // node_modules
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useCallback } from "react";
+import { useHistory, Link } from "react-router-dom";
 import {
     Flex,
     Box,
@@ -11,6 +11,7 @@ import {
     MenuList,
     MenuButton,
     MenuItem,
+    Image,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,15 +19,27 @@ import { useDispatch, useSelector } from "react-redux";
 // context
 import AuthContext from "../../store/auth-context";
 
-// states
+// store
 import { RootState } from "../../store";
+import { logout } from "../../store/me-slice";
+
+// config
+import { BASE_SERVER_API_URL } from "../../config";
 
 // consts
 import { PATH } from "../../consts";
 
 const HeaderComponent: React.FC = () => {
     const authContext = useContext(AuthContext);
+    const dispatch = useDispatch();
+    const history = useHistory();
     const me = useSelector((state: RootState) => state.me.me);
+
+    const logoutHandler = () => {
+        dispatch(logout());
+        authContext.logout();
+        history.push(PATH.HOME);
+    };
 
     return (
         <Flex bgColor={"darkgray"} padding={"10px"}>
@@ -37,7 +50,7 @@ const HeaderComponent: React.FC = () => {
             </Box>
             <Spacer />
             {authContext.isLoggedIn ? (
-                <Box>
+                <Box display={"flex"} alignItems={"center"}>
                     <Link to={PATH.BLOGS}>
                         <Button colorScheme="teal" mr="4">
                             Blogs
@@ -63,13 +76,23 @@ const HeaderComponent: React.FC = () => {
                                     <Link to={PATH.PROFILE}>
                                         <MenuItem>Profile</MenuItem>
                                     </Link>
-                                    <MenuItem onClick={authContext.logout}>
+                                    <MenuItem onClick={logoutHandler}>
                                         Logout
                                     </MenuItem>
                                 </MenuList>
                             </>
                         )}
                     </Menu>
+                    {me.photoUrl && (
+                        <Image
+                            width={"50px"}
+                            height={"50px"}
+                            borderRadius={"100%"}
+                            display={"inline"}
+                            ml={"8px"}
+                            src={`${BASE_SERVER_API_URL}${me.photoUrl}`}
+                        />
+                    )}
                 </Box>
             ) : (
                 <Box>

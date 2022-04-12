@@ -1,7 +1,8 @@
 // node_modules
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
-import { useHistory } from "react-router-dom";
 
 // components
 import BlogEditComponent from "../../components/BlogEdit";
@@ -9,25 +10,38 @@ import BlogEditComponent from "../../components/BlogEdit";
 // config
 import { SERVER_API_URL } from "../../config";
 
+// slices
+import { RootState } from "../../store";
+
 // consts
 import { PATH } from "../../consts";
+
+// slice
+import { fetchCertainBlog } from "../../store/blogs-slice";
 
 // models
 import ApiError from "../../models/ApiError";
 
-const NewBlogPage = () => {
+const UpdateBlogPage = () => {
     const API_URL = process.env.REACT_APP_BLOG_API_URL || SERVER_API_URL;
+    const blog = useSelector((state: RootState) => state.blogs.blog);
     const history = useHistory();
     const toast = useToast();
+    const dispatch = useDispatch();
+    const { id } = useParams<{ id: string }>();
 
-    const onNewBlogSave = async (
+    useEffect(() => {
+        dispatch(fetchCertainBlog(id));
+    }, [id]);
+
+    const onUpdateBlog = async (
         title: string,
         text: string,
         imageUrl: string
     ) => {
         try {
-            const response = await fetch(`${API_URL}/blogs/blog`, {
-                method: "POST",
+            const response = await fetch(`${API_URL}/blogs/blog/${id}`, {
+                method: "PUT",
                 body: JSON.stringify({
                     title,
                     text,
@@ -45,7 +59,6 @@ const NewBlogPage = () => {
             const responseData: {
                 message: string;
             } = await response.json();
-            console.log("message", responseData);
             toast({
                 title: `${responseData.message}`,
                 status: "info",
@@ -65,10 +78,14 @@ const NewBlogPage = () => {
 
     return (
         <BlogEditComponent
-            data={{ title: "", text: "", imageUrl: "" }}
-            setData={onNewBlogSave}
+            data={{
+                title: blog.title,
+                text: blog.text,
+                imageUrl: blog.imageUrl,
+            }}
+            setData={onUpdateBlog}
         ></BlogEditComponent>
     );
 };
 
-export default NewBlogPage;
+export default UpdateBlogPage;

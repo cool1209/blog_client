@@ -10,6 +10,7 @@ import SignUpPage from "./pages/SignUp";
 import BlogsPage from "./pages/Blogs";
 import BlogPage from "./pages/Blog";
 import NewBlogPage from "./pages/NewBlog";
+import UpdateBlogPage from "./pages/UpdateBlog";
 import CommentPage from "./pages/Comment";
 import ProfilePage from "./pages/Profile";
 
@@ -41,7 +42,9 @@ const App = () => {
     }
 
     useEffect(() => {
-        if (authContext.token) dispatch(fetchMe(authContext.token));
+        if (authContext.token) {
+            dispatch(fetchMe(authContext.token));
+        }
     }, [authContext.token]);
 
     return (
@@ -72,6 +75,9 @@ const App = () => {
                     </Route>
                     <Route path={PATH.NEWBLOG}>
                         <NewBlogPage />
+                    </Route>
+                    <Route path={`${PATH.UPDATE}/:id`}>
+                        <UpdateBlogPage />
                     </Route>
                     <Route path={`${PATH.COMMENT}/:id`}>
                         <CommentPage />

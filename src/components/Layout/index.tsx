@@ -26,7 +26,12 @@ const LayoutComponent: React.FC = (props) => {
                         : "flex-start"
                 }
                 w="100%"
-                h="87vh"
+                h={
+                    location.pathname === PATH.HOME ||
+                    location.pathname === PATH.SIGNIN
+                        ? "87vh"
+                        : "100%"
+                }
             >
                 {props.children}
             </Flex>

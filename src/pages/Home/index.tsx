@@ -4,7 +4,8 @@ import React from "react";
 const HomePage = () => {
     return (
         <Box fontSize="2xl" textAlign="center">
-            <Text fontSize="6xl">Welcome to Bike Rentals app</Text>
+            <Text fontSize="6xl">Welcome to Test Blog</Text>
+            <Text fontSize="2xl">Developed by Furuya Nobuo</Text>
         </Box>
     );
 };
