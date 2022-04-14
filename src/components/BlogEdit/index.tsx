@@ -1,5 +1,5 @@
 // node_modules
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
     Input,
     Button,
@@ -39,9 +39,9 @@ const BlogEditComponent: React.FC<Props> = ({ data, setData }) => {
         setData(titleRef.current.value, textRef.current.value, imageUrl);
     };
 
-    // useEffect(() => {
-
-    // })
+    useEffect(() => {
+        setImageUrl(data.imageUrl);
+    }, [data.imageUrl]);
 
     return (
         <form onSubmit={handleSubmit} className="form-width-90">

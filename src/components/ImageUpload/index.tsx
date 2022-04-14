@@ -18,17 +18,20 @@ const ImageUploadComponent: React.FC<Props> = ({ setData }) => {
     const { colorMode } = useColorMode();
 
     const imageSelect = async (files: FileList) => {
+        console.log("imageSelect1");
         const formData = new FormData();
         Array.from(files).map((file: File) => {
             formData.append("imgCollection", file);
             return file;
         });
 
+        console.log("imageSelect2");
         const response = await fetch(`${API_URL}/upload/image`, {
             method: "POST",
             body: formData,
         });
 
+        console.log("imageSelect3");
         if (!response.ok) {
             const responseData: ApiError = await response.json();
             throw new Error(responseData.message || response.statusText);
