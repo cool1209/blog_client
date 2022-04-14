@@ -5,5 +5,5 @@
 
 [[redirects]]
     from = "/*"
-    to = "/index.html"
+    to = "https://symphonious-fenglisu-786678.netlify.app"
     status = 200
