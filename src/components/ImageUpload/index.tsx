@@ -19,8 +19,9 @@ const ImageUploadComponent: React.FC<Props> = ({ setData }) => {
 
     const imageSelect = async (files: FileList) => {
         const formData = new FormData();
-        Array.from(files).map((file) => {
+        Array.from(files).map((file: File) => {
             formData.append("imgCollection", file);
+            return file;
         });
 
         const response = await fetch(`${API_URL}/upload/image`, {
