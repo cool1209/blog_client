@@ -1,6 +1,12 @@
 // node_modules
 import React, { useContext, useEffect } from "react";
-import { Route, Switch, useHistory, useLocation } from "react-router-dom";
+import {
+    Route,
+    Switch,
+    useHistory,
+    useLocation,
+    Redirect,
+} from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 // pages
@@ -60,6 +66,7 @@ const App = () => {
                     <Route path={PATH.SIGNUP}>
                         <SignUpPage />
                     </Route>
+                    <Redirect from={"*"} to={PATH.HOME} />
                 </Switch>
             )}
             {authContext.isLoggedIn && (
@@ -85,6 +92,7 @@ const App = () => {
                     <Route path={PATH.PROFILE}>
                         <ProfilePage />
                     </Route>
+                    <Redirect from={"*"} to={PATH.HOME} />
                 </Switch>
             )}
         </LayoutComponent>
