@@ -78,7 +78,7 @@ const BlogViewComponent: React.FC<Props> = ({ blog, ...props }) => {
                     <Image
                         width={"100%"}
                         height={"300px"}
-                        src={`${BASE_SERVER_API_URL}${blog.imageUrl}`}
+                        src={`${BASE_SERVER_API_URL}/${blog.imageUrl}`}
                     />
                 )}
                 {blog.imageUrl && <Divider></Divider>}

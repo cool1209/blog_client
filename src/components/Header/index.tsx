@@ -90,7 +90,7 @@ const HeaderComponent: React.FC = () => {
                             borderRadius={"100%"}
                             display={"inline"}
                             ml={"8px"}
-                            src={`${BASE_SERVER_API_URL}${me.photoUrl}`}
+                            src={`${BASE_SERVER_API_URL}/${me.photoUrl}`}
                         />
                     )}
                 </Box>

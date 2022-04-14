@@ -79,7 +79,7 @@ const BlogEditComponent: React.FC<Props> = ({ data, setData }) => {
                         <Image
                             width={"100%"}
                             height={"300px"}
-                            src={`${BASE_SERVER_API_URL}${imageUrl}`}
+                            src={`${BASE_SERVER_API_URL}/${imageUrl}`}
                         />
                     )}
                 </FormControl>
