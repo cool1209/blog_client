@@ -1,6 +1,6 @@
 // node_modules
 import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Heading, Text, Stack, Divider } from "@chakra-ui/react";
 import { ThumbUp } from "@material-ui/icons";
 

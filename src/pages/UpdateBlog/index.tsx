@@ -30,7 +30,7 @@ const UpdateBlogPage = () => {
 
     useEffect(() => {
         dispatch(fetchCertainBlog(id));
-    }, [dispatch, fetchCertainBlog, id]);
+    }, [dispatch, id]);
 
     const onUpdateBlog = async (
         title: string,

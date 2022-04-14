@@ -45,7 +45,7 @@ const App = () => {
         if (authContext.token) {
             dispatch(fetchMe(authContext.token));
         }
-    }, [dispatch, fetchMe, authContext.token]);
+    }, [dispatch, authContext.token]);
 
     return (
         <LayoutComponent>

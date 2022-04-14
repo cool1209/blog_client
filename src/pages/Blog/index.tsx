@@ -21,7 +21,7 @@ const BlogPage = () => {
 
     useEffect(() => {
         dispatch(fetchBlog(id));
-    }, [fetchBlog, dispatch, id]);
+    }, [dispatch, id]);
 
     return (
         <Box width={"90%"}>

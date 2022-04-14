@@ -24,7 +24,7 @@ const PaginationComponent: React.FC<Props> = ({
         if (currentPage > allPagesNumber) {
             setCurrentPage(allPagesNumber ? allPagesNumber : 1);
         }
-    }, [allPagesNumber, setCurrentPage]);
+    }, [allPagesNumber, setCurrentPage, currentPage]);
 
     const onFirstPage = (): void => {
         setCurrentPage(1);
