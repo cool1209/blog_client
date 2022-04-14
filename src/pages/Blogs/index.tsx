@@ -26,7 +26,7 @@ const BlogsPage = () => {
 
     useEffect(() => {
         dispatch(fetchBlogs(pageIndex, itemCount, title));
-    }, [fetchBlogs, pageIndex, itemCount, title]);
+    }, [dispatch, fetchBlogs, pageIndex, itemCount, title]);
 
     useEffect(() => {
         setAllPagesNumber(Math.ceil(count / itemCount));

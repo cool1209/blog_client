@@ -18,13 +18,13 @@ const PaginationComponent: React.FC<Props> = ({
 
     useEffect(() => {
         pageChange(currentPage);
-    }, [currentPage]);
+    }, [currentPage, pageChange]);
 
     useEffect(() => {
         if (currentPage > allPagesNumber) {
             setCurrentPage(allPagesNumber ? allPagesNumber : 1);
         }
-    }, [allPagesNumber]);
+    }, [allPagesNumber, setCurrentPage]);
 
     const onFirstPage = (): void => {
         setCurrentPage(1);

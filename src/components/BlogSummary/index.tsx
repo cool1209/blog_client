@@ -16,8 +16,6 @@ type Props = {
 };
 
 const BlogSummaryComponent: React.FC<Props> = ({ blog, ...props }) => {
-    const location = useLocation();
-
     return (
         <>
             <Link to={`${PATH.BLOG}/${blog.id}`}>
