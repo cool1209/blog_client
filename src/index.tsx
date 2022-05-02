@@ -1,7 +1,7 @@
 // node_modules
 import { ColorModeScript, ChakraProvider, theme } from "@chakra-ui/react";
-import * as React from "react";
 import ReactDOM from "react-dom";
+import * as React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
