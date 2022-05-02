@@ -1,3 +1,4 @@
+// node_modules
 import { ColorModeScript, ChakraProvider, theme } from "@chakra-ui/react";
 import * as React from "react";
 import ReactDOM from "react-dom";
