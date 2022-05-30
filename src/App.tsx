@@ -32,6 +32,8 @@ import AuthContext from "./store/auth-context";
 // consts
 import { PATH } from "./consts";
 
+// console.log("hello");
+
 const App = () => {
     const authContext = useContext(AuthContext);
     const dispatch = useDispatch();
