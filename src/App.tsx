@@ -102,5 +102,3 @@ const App = () => {
 };
 
 export default App;
-
-// for co-author
